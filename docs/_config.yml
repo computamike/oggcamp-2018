@@ -1,1 +1,30 @@
-theme: jekyll-theme-hacker
+# Site settings
+title: OggCamp 2018 Repository
+name: Mike Hingley
+email: computa_mike@hotmil.compose
+baseurl: ""
+url: http://luugiathuy.com
+description: This is the OggCamp 2018 repository.
+twitter_username: computa_mike
+github_username: computa_mike
+
+# Build settings
+# markdown: kramdown
+# permalink: /:year/:month/:title/
+# sass:
+#   style: compressed
+# plugins:
+#   - jekyll-sitemap
+#   - jekyll-redirect-from
+#   - jekyll-gist
+exclude:
+  - README.md
+  - reveal.js/index.html
+  - reveal.js/plugin/markdown/example.html
+  - reveal.js/plugin/notes/notes.html
+  - reveal.js/plugin/notes-server/notes.html
+  - reveal.js/test/
+  - reveal.js/*.md
+  - reveal.js/Gruntfile.js
+  - reveal.js/package.json
+  - reveal.js/LICENSE
