@@ -28,3 +28,5 @@ exclude:
   - reveal.js/Gruntfile.js
   - reveal.js/package.json
   - reveal.js/LICENSE
+
+theme: jekyll-theme-cayman
