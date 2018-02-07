@@ -29,4 +29,4 @@ exclude:
   - reveal.js/package.json
   - reveal.js/LICENSE
 
-theme: jekyll-theme-cayman
+theme: jekyll-theme-midnight
