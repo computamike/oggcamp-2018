@@ -7,7 +7,7 @@ url: "https://computamike.github.io/oggcamp-2018/"
 description: This is the OggCamp 2018 repository.
 twitter_username: computa_mike
 github_username: computa_mike
-
+author: Mike Hingley
 # Build settings
 # markdown: kramdown
 # permalink: /:year/:month/:title/
