@@ -13,7 +13,13 @@
 
     <meta name="url" content="{{ site.baseurl }}" />
     <meta name="url" content="{{ site.url }}" />
-    <meta name="author" content="{{ site.author }}" />
+    {% if page.author %}
+      <meta name="author" content="{{ page.author }}" />
+    {% else %}
+      {% if site.author %}
+        <meta name="author" content="{{ site.author }}" />
+      {% endif %}
+    {% endif %}
 
     <!-- Description -->
     {% if page.description %}
@@ -89,8 +95,6 @@
           { src: '{{ "/reveal.js/plugin/notes/notes.js" | prepend: site.baseurl }}', async: true }
         ]
       });
-
     </script>
-    <p>I AM A SLIDE </p>
   </body>
 </html>
