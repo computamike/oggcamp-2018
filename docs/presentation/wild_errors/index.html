@@ -1,263 +1,305 @@
----
-layout: slide
-title: Wild Error messages
-description: A slide deck about error messages in the wild, and what we can learn about systems from the way they break.
-theme: black
-transition: slide
-author: Mike Hingley
-permalink: presentation/wild_errors/
----
-<style type="text/css">
-p { text-align: left; }
-</style>
+<!DOCTYPE html>
+	<html class="sl-root decks export offline loaded">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Oggcamp 2018  - Wild Error Messages</title>
+
+
+		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
 
 
 
-<section>
-  <h1>Wild Errors</h1>
-  <h2>A guide to spottting error messages in the wild.</h2>
-  <p style="text-align:center;">
-    <small>
-      Mike Hingley <a href="https://twitter.com/computa_mike">@computamike</a>
-    </small>
-    <br />
-    <small>August 2018</small>
-  </p>
-</section>
+	</head>
+	<body class="reveal-viewport theme-font-montserrat theme-color-white-blue">
+		<div class="reveal">
+			<div class="slides">
+				<section data-id="2d5bf90be8519a37f010590a93b3b96d" data-background-color="#666666"><div class="sl-block" data-block-type="text" style="width: 806px; left: 77px; top: 189px; height: auto;" data-block-id="c97073ac74a0fed830c47bf9bd0e5383"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1>Wild Error Messages</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 806px; left: 77px; top: 286px; height: auto;" data-block-id="af807958dd1468272e7e939fb9da7ca2"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Subtitle" style="z-index: 12;">
+<h2>Learning from failure</h2>
+</div></div></section><section data-id="1bffbf064756f6032393f58e71c835c4" data-background-image="deck-2-3/d235d2471c78b238776adb0b64ed5515" data-background-opacity="0.7"><div class="sl-block" data-block-type="text" style="width: 806px; left: 77px; top: 189px; height: auto;" data-block-id="e422c84ee335ea93ad572849bbe5913f"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
+<h2>Agenda</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 806px; left: 77px; top: 263px; height: auto;" data-block-id="e8af508b1bc9b6de636824936e740477"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;" dir="ui">
+<ul>
+	<li>What's a wild error?</li>
+	<li>Some examples of Wild Errors</li>
+	<li>Why photograph Wild Errors?</li>
+	<li>What can be learned from Wild Errors</li>
+	<li>Capturing errors yourself</li>
+	<li>Strategies for Wild Errors</li>
+</ul>
+</div></div></section><section data-id="7e32fb4c80402932e32e1d8053dd2385" data-background-image="deck-2-3/bbcd4f53ea1cdbe00717f904c7094efc.jpg"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 355px; height: 195px; left: 80px; top: 112px;" data-block-id="294656a27b98f48abc657ba9021c077d"><div class="sl-block-content fragment" data-inline-svg="false" style="z-index: 13;" data-fragment-index="0"><img style="" data-natural-width="456" data-natural-height="250" data-lazy-loaded="" data-src="deck-2-3/66896766db012f2e1e5f3947448dd98e.svg"></div></div></section><section class="stack" data-id="84f05d4ebc8e814427a44aaf65257487"><section data-id="8e4aeabdce107a66ad8fe7d3f1f94584" data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-background-size="cover"><div class="sl-block" data-block-type="image" data-block-id="df2b5fbb92704ab304b68bea6754eb2f" style="min-width: 4px; min-height: 4px; width: 770px; height: 700px; left: 95px; top: 0px;"><div class="sl-block-content" style="z-index: 15;"><img style="" data-natural-width="1485" data-natural-height="1350" data-lazy-loaded="" data-src="deck-2-3/e3d8050f4379ed0efff6f4a4a56ed8cf.png"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="cbaaede7e69a4a66b94690ce4abd2563" style="min-width: 4px; min-height: 4px; width: 450px; height: 600px; left: 255px; top: 50px;"><div class="sl-block-content fragment" style="z-index: 12;" data-fragment-index="0"><img style="" data-natural-width="1536" data-natural-height="2048" data-lazy-loaded="" data-src="deck-2-3/f2c04cd48eed049bd8ceb57821b9af3d.jpg"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="0f7cafad07428c6a02eb54fc91955641" style="min-width: 4px; min-height: 4px; width: 449px; height: 599px; left: 256px; top: 51px;"><div class="sl-block-content fragment" style="z-index: 13;" data-fragment-index="1"><img data-natural-width="1536" data-natural-height="2048" style="" data-lazy-loaded="" data-src="deck-2-3/2035f8360eb7c60ba9bfeebf15da8210.jpg"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="5555429bf2c33a42f07f9c6c558eae98" style="min-width: 4px; min-height: 4px; width: 491px; height: 368px; left: 235px; top: 166px;"><div class="sl-block-content fragment" style="z-index: 14;" data-fragment-index="2"><img data-natural-width="3264" data-natural-height="2448" style="" data-lazy-loaded="" data-src="deck-2-3/beec747ccb245b6d3d2f2d14931545d4.jpg"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 442px; height: 442px; left: 259px; top: 129px;" data-block-id="5e85c938634d14c3bb23c5c76cda94a0"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="300" data-natural-height="300" data-lazy-loaded="" data-src="deck-2-3/a582e62464ce6f84609c0760d8a52cb6.svg"></div></div></section><section data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-background-size="cover" data-id="86c241ea2847217f37250cefe5d4deaa">
+<div class="sl-block" data-block-type="image" style="width: 540px; height: 720px; left: 210px; top: 0px; min-width: 4px; min-height: 4px;" data-block-id="bdb9e05d9e67d4c9c19a7c5c5d8e2c02"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1536" data-natural-height="2048" data-lazy-loaded="" data-src="deck-2-3/f2c04cd48eed049bd8ceb57821b9af3d.jpg"></div></div>
 
-<section data-markdown data-separator-notes="^Note:">
-	<textarea data-template>
-    ## Agenda
-    - What's a wild error?
-    - Some examples of Wild Errors
-    - Why photograph Wild Errors?
-    - What can be learned from Wild Errors
-    - Capturing errors yourself
-    - Strategies for Wild Errors
 
-    Note:
-    What's a wild error - errors used to be thrown by Computers - 
-    now infrastructure like billboards can experience errors.
-  </textarea>
-</section>
+<div class="sl-block" data-block-type="image" style="width: 442px; height: 442px; left: 259px; top: 129px; min-width: 4px; min-height: 4px;" data-block-id="fb3f5890febbacaf237c132f3362a5c2"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="300" data-natural-height="300" data-lazy-loaded="" data-src="deck-2-3/a582e62464ce6f84609c0760d8a52cb6.svg"></div></div></section><section data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-background-size="cover" data-id="947c1325bcbd0e060d0ba6b0bcb5ec58">
 
-<section data-background-image="images/cody-davis-253928-unsplash.jpg" data-separator-notes="^Note:">
-      <img data-natural-width="2000" data-natural-height="1125" data-src="images/something_strange.svg" style="background:none"class="plain fragment fade-out" />
-      <aside class="notes">
-          Note:
-          What's a wild error - errors used to be thrown by Computers - 
-          now infrastructure like billboards can experience errors
-      </aside>
-</section>
+<div class="sl-block" data-block-type="image" style="width: 540px; height: 720px; left: 210px; top: 0px; min-width: 4px; min-height: 4px;" data-block-id="1348f21c585bd5f39d77deafcce2760a"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="1536" data-natural-height="2048" style="" data-lazy-loaded="" data-src="deck-2-3/2035f8360eb7c60ba9bfeebf15da8210.jpg"></div></div>
 
-<section  data-background-image="images/wp-image-451715427jpg_1_.jpg" data-separator-notes="^Note:">
-  <aside class="notes">s
-      This was a cash machine photographed back in february 2017.Pretty interesting - we can learn quite a lot from this photo.
+</section><section data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-background-size="cover" data-id="a0c833121aced13d674e8d5c660b2e3c">
 
-  </aside>
-</section>
 
-<section data-background-image="images/wp-image-451715427jpg_1_.jpg" data-background-opacity="0.7">
-  <div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 557px; height: 314px; left: 0px; top: 0px;">
-    <div class="sl-block-content fragment plain" style="z-index: 12;" data-fragment-index="0">
-      <img style="background:none" data-natural-width="330" data-natural-height="186" data-src="images/atm_error.png">
+<div class="sl-block" data-block-type="image" style="width: 960px; height: 720px; left: 0px; top: 0px; min-width: 4px; min-height: 4px;" data-block-id="82c217e92830fe5cc339786cfec002c1"><div class="sl-block-content" style="z-index: 13;"><img data-natural-width="3264" data-natural-height="2448" style="" data-lazy-loaded="" data-src="deck-2-3/beec747ccb245b6d3d2f2d14931545d4.jpg"></div></div>
+</section></section><section data-id="ec290b3857de1fe49dd50246a025bc1c" data-background-image="deck-2-3/d235d2471c78b238776adb0b64ed5515" data-background-opacity="0.7">
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 489px; height: 266px; left: 236px; top: 67px;" data-block-id="24c7829c0d57e728142a4bd09518ead8"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="206" data-natural-height="112" data-lazy-loaded="" data-src="deck-2-3/6b32e14b655988d5f15bb802a194d470.svg"></div></div></section><section data-id="7de6baaef6af8d70c4dff9a1f7e0c2d3" data-background-image="deck-2-3/c883093e15d434e759c3a0df4efc9b08.jpg">
+</section><section data-id="60e51cb27248ef02f034396c5248d373" data-background-opacity="0.7" data-background-image="deck-2-3/e1b9d0094b9d13e5e11d79226d5cba08.jpg"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 557px; height: 314px; left: 0px; top: 0px;" data-block-id="6598039c2387799ad4f70239a9f68492"><div class="sl-block-content fragment" style="z-index: 10;" data-fragment-index="0"><img style="" data-natural-width="330" data-natural-height="186" data-lazy-loaded="" data-src="deck-2-3/09cc7c1182eba32c06a3261035425825.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 621px; height: 415px; left: 339px; top: 285px;" data-block-id="43fc6e1068937d16a20d14cd7ba1b829"><div class="sl-block-style" style="z-index: 11;"><div class="sl-block-content fragment" style="z-index: 11;" data-fragment-index="2"><img style="" data-natural-width="480" data-natural-height="321" data-lazy-loaded="" data-src="deck-2-3/a064a931d88b0f3ce7be8627ee590273.png"></div></div></div>
+<div class="sl-block" data-block-type="line" data-block-id="fc815872166b4da66d09e79a2c3e0cb1" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 39px; top: 38px;"><div class="sl-block-content fragment" data-line-x1="-166" data-line-y1="-171" data-line-x2="-248" data-line-y2="129" data-line-color="#cc0000" data-line-start-type="arrow" data-line-end-type="none" style="z-index: 12;" data-line-width="14px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="82" height="300" viewbox="-248 -171 82 300"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="-172" y1="-151" x2="-248" y2="129"></line><line stroke="#cc0000" stroke-width="14" x1="-172" y1="-151" x2="-248" y2="129"></line><polygon fill="#cc0000" transform="translate(-172,-151) rotate(195.287)" points="0,21 21,-21 -21,-21"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="c2a6aefbaadf59e9689abbf247ccd725" style="height: auto; min-width: 30px; min-height: 30px; width: 226px; left: 0px; top: 327px;"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; color: rgb(204, 0, 0);" data-gramm_id="3665e906-e8dc-5c73-f66b-4a450334dd98" data-gramm="true" data-gramm_editor="true" data-fragment-index="3">
+<p style="text-align: left;">Same gradient fill</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 240px; top: 301px;" data-block-id="77ebfbe987bd768088ba50e628d32781"><div class="sl-block-content fragment" data-line-x1="132" data-line-y1="36" data-line-x2="-155" data-line-y2="85" data-line-color="#cc0000" data-line-start-type="arrow" data-line-end-type="none" style="z-index: 14;" data-line-width="14px" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="287" height="49" viewbox="-155 36 287 49"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="111" y1="40" x2="-155" y2="85"></line><line stroke="#cc0000" stroke-width="14" x1="111" y1="40" x2="-155" y2="85"></line><polygon fill="#cc0000" transform="translate(111,40) rotate(260.311)" points="0,21 21,-21 -21,-21"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 265px; left: 679px; top: 38px;" data-block-id="6367766936904dd57b39fd6f659bd2cc"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15; color: rgb(204, 0, 0);" data-gramm_id="3665e906-e8dc-5c73-f66b-4a450334dd98" data-gramm="true" data-gramm_editor="true" data-fragment-index="4">
+<p style="text-align:left">Same close button</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 944px; top: 77px;" data-block-id="4ff9380a374f0bc57a98d4b6cac1cdfc"><div class="sl-block-content fragment" data-line-x1="506" data-line-y1="28" data-line-x2="506" data-line-y2="-196" data-line-color="#cc0000" data-line-start-type="arrow" data-line-end-type="none" style="z-index: 16;" data-line-width="14px" data-fragment-index="4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="1" height="224" viewbox="506 -196 1 224"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="506" y1="7" x2="506" y2="-196"></line><line stroke="#cc0000" stroke-width="14" x1="506" y1="7" x2="506" y2="-196"></line><polygon fill="#cc0000" transform="translate(506,7) rotate(0)" points="0,21 21,-21 -21,-21"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 550px; top: 38px;" data-block-id="c9621c5362532b70dc1b964919def111"><div class="sl-block-content fragment" data-line-x1="190" data-line-y1="-225" data-line-x2="307" data-line-y2="-206" data-line-color="#cc0000" data-line-start-type="arrow" data-line-end-type="none" style="z-index: 17;" data-line-width="14px" data-fragment-index="4"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="117" height="19" viewbox="190 -225 117 19"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="211" y1="-222" x2="307" y2="-206"></line><line stroke="#cc0000" stroke-width="14" x1="211" y1="-222" x2="307" y2="-206"></line><polygon fill="#cc0000" transform="translate(211,-222) rotate(99.224)" points="0,21 21,-21 -21,-21"></polygon></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 265px; left: 604px; top: 157px;" data-block-id="057d86e81d48050ed2df7ee7dcb1634b"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19; color: rgb(204, 0, 0);" data-gramm_id="3665e906-e8dc-5c73-f66b-4a450334dd98" data-gramm="true" data-gramm_editor="true" data-fragment-index="1">
+<p style="text-align:left">Mouse Cursor</p>
+</div></div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 327px; top: 188px;" data-block-id="ba3df3eac9d11ad311351bcd1e8078cd"><div class="sl-block-content fragment" data-line-x1="200" data-line-y1="-206" data-line-x2="456" data-line-y2="-227" data-line-color="#cc0000" data-line-start-type="arrow" data-line-end-type="none" style="z-index: 20;" data-line-width="14px" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="256" height="21" viewbox="200 -227 256 21"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="221" y1="-208" x2="456" y2="-227"></line><line stroke="#cc0000" stroke-width="14" x1="221" y1="-208" x2="456" y2="-227"></line><polygon fill="#cc0000" transform="translate(221,-208) rotate(85.31)" points="0,21 21,-21 -21,-21"></polygon></svg></div></div></section><section data-id="4e5e305ecde08294f2a2e9e7e512c870" data-background-image="deck-2-3/a8027f0c4741101e7921b24cb3791caa.png" data-background-size="contain"></section><section data-id="9f004a73ea33edeb539bf3cacb587499" data-background-image="deck-2-3/d235d2471c78b238776adb0b64ed5515" data-background-opacity="0.7"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 33px;" data-block-id="3e32f145e842d11302b3f0d0ad4ee1a4"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;" dir="ui" data-gramm_id="1bcdf899-061e-dd12-7020-06ade36517ae" data-gramm="true" data-gramm_editor="true">
+<h3>What can we learn from just this picture</h3>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 855px; left: 68px; top: 194px;" data-block-id="d6a8bb67eb0431874679521820f1ac4d"><div class="sl-block-style" style="z-index: 12;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left; background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0);">
+<ul>
+	<li class="fragment" data-fragment-index="0">
+<span style="font-size:1.2em">OS</span>
+	<ul>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:1.2em">Likely windows 2000 - with mouse (?)</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="1">
+<span style="font-size:1.2em">Local file system</span>
+	<ul>
+		<li class="fragment" data-fragment-index="1"><span style="font-size:1.2em">which stores logs</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="2">
+<span style="font-size:1.2em">Updated through some update process</span>
+	<ul>
+		<li class="fragment" data-fragment-index="2"><span style="font-size:1.2em">Runs on top of ATM Process</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="3">
+<span style="font-size:1.2em">OS not restricted to a single process</span>
+	<ul>
+		<li class="fragment" data-fragment-index="3"><span style="font-size:1.2em">multiple copies of update process started</span></li>
+		<li class="fragment" data-fragment-index="3"><span style="font-size:36px">How about other software? Keylogger?</span></li>
+	</ul>
+	</li>
+</ul>
+</div></div></div>
+</section><section data-id="6e17c05373fc9aa74c6f68ad56083214" data-background-image="deck-2-3/8f15e182e70a1a7fcb71aacbffc4c747"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 746px; height: 196px; left: 160px; top: 434px;" data-block-id="cecb8143d7d3c61d50882eefa90bb40d"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="430" data-natural-height="113" data-lazy-loaded="" data-src="deck-2-3/56c4e03d47f46e1c9c2472bb1bfab33e.svg"></div></div></section><section data-id="a4c9eb3052a13a93f4a3aa5e7ae3cfcd" data-background-image="deck-2-3/7e1ac49fc59f8c49caa5c1eb77acdca2" data-background-opacity="0.7"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 430px; height: 113px; left: 31px; top: 27px;" data-block-id="59e7e7bfe47c6001c736b52deff27e38"><div class="sl-block-content" style="z-index: 10;" data-inline-svg="false"><img style="" data-natural-width="430" data-natural-height="113" data-lazy-loaded="" data-src="deck-2-3/56c4e03d47f46e1c9c2472bb1bfab33e.svg"></div></div>
+
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 31px; top: 198px;" data-block-id="7096f74f4d122dc102d09bea93fb3bda"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left;">
+<ul>
+	<li class="fragment" data-fragment-index="0">Photographs on public property (road/footpaths etc)</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 39px; height: 39px; left: 892px; top: 198px;" data-block-id="c7d4054d37136719feb5257973bc8506"><div class="sl-block-content fragment" data-shape-type="symbol-checkmark-circle" data-shape-fill-color="rgb(106, 168, 79)" data-shape-stretch="true" style="z-index: 12;" data-fragment-index="1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 32 32"><g class="shape-element" fill="rgb(106, 168, 79)"><path d="M16 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zM13.52 23.383l-7.362-7.363 2.828-2.828 4.533 4.535 9.617-9.617 2.828 2.828-12.444 12.445z"></path></g></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 31px; top: 354px;" data-block-id="bda8750f6a6e985eae2bfa0345fab276"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left;">
+<ul>
+	<li class="fragment" data-fragment-index="4">You can be asked not to take photographs</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 39px; height: 39px; left: 892px; top: 276px;" data-block-id="70f255699702874fa517529cef264681"><div class="sl-block-content fragment" data-shape-type="symbol-checkmark-circle" data-shape-fill-color="rgb(106, 168, 79)" data-shape-stretch="true" style="z-index: 14;" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 32 32"><g class="shape-element" fill="rgb(106, 168, 79)"><path d="M16 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zM13.52 23.383l-7.362-7.363 2.828-2.828 4.533 4.535 9.617-9.617 2.828 2.828-12.444 12.445z"></path></g></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 31px; top: 432px;" data-block-id="f714b5f70c26bd73ad51f7dee82950b9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15; text-align: left;">
+<ul>
+	<li class="fragment" data-fragment-index="6">No Photography could be a condition of entry</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 38px; height: 39px; left: 831px; top: 276px;" data-block-id="598ee6c199c46569ad5e0959655f90a6"><div class="sl-block-content fragment" data-shape-type="symbol-x-circle" data-shape-fill-color="rgb(204, 65, 37)" data-shape-stretch="true" style="z-index: 16;" data-fragment-index="3"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 32 32"><g class="shape-element" fill="rgb(204, 65, 37)"><path d="M16 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zM23.914 21.086l-2.828 2.828-5.086-5.086-5.086 5.086-2.828-2.828 5.086-5.086-5.086-5.086 2.828-2.828 5.086 5.086 5.086-5.086 2.828 2.828-5.086 5.086 5.086 5.086z"></path></g></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 33px; top: 510px;" data-block-id="6ea0516f303f261f9eacbb39e83b09d0"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17; text-align: left;">
+<ul>
+	<li class="fragment" data-fragment-index="8">If you're asked to stop taking photos - stop taking photos</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 767px; left: 33px; top: 276px;" data-block-id="5013fe7a1ba0acdeb88b72742c93ee02"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18; text-align: left;">
+<ul>
+	<li class="fragment" data-fragment-index="2">Photography on private property (shops etc)</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 38px; height: 39px; left: 892px; top: 354px;" data-block-id="ee1e4389872ee35c58f2bd0489b35c71"><div class="sl-block-content fragment" data-shape-type="symbol-x-circle" data-shape-fill-color="rgb(204, 65, 37)" data-shape-stretch="true" style="z-index: 19;" data-fragment-index="5"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 32 32"><g class="shape-element" fill="rgb(204, 65, 37)"><path d="M16 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zM23.914 21.086l-2.828 2.828-5.086-5.086-5.086 5.086-2.828-2.828 5.086-5.086-5.086-5.086 2.828-2.828 5.086 5.086 5.086-5.086 2.828 2.828-5.086 5.086 5.086 5.086z"></path></g></svg></div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 38px; height: 39px; left: 892px; top: 432px;" data-block-id="bf9d281d1c12b3fef0ac0e76609801d2"><div class="sl-block-content fragment" data-shape-type="symbol-x-circle" data-shape-fill-color="rgb(204, 65, 37)" data-shape-stretch="true" style="z-index: 20;" data-fragment-index="7"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 32 32"><g class="shape-element" fill="rgb(204, 65, 37)"><path d="M16 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zM23.914 21.086l-2.828 2.828-5.086-5.086-5.086 5.086-2.828-2.828 5.086-5.086-5.086-5.086 2.828-2.828 5.086 5.086 5.086-5.086 2.828 2.828-5.086 5.086 5.086 5.086z"></path></g></svg></div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 38px; height: 39px; left: 892px; top: 510px;" data-block-id="61b4af41c2eb92f40a61099f5ca3bc53"><div class="sl-block-content fragment" data-shape-type="symbol-x-circle" data-shape-fill-color="rgb(204, 65, 37)" data-shape-stretch="true" style="z-index: 21;" data-fragment-index="9"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 32 32"><g class="shape-element" fill="rgb(204, 65, 37)"><path d="M16 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zM23.914 21.086l-2.828 2.828-5.086-5.086-5.086 5.086-2.828-2.828 5.086-5.086-5.086-5.086 2.828-2.828 5.086 5.086 5.086-5.086 2.828 2.828-5.086 5.086 5.086 5.086z"></path></g></svg></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 33px; top: 597px;" data-block-id="02330069b346ea5a7f1a52fa7f7fe692"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 23; text-align: left;">
+<ul>
+	<li class="fragment" data-fragment-index="10">Some restrictions around photography in law courts,<br>
+	MOD installations etc.</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 38px; height: 39px; left: 892px; top: 597px;" data-block-id="2ba99622d6c35080610f392a93d1c750"><div class="sl-block-content fragment" data-shape-type="symbol-x-circle" data-shape-fill-color="rgb(204, 65, 37)" data-shape-stretch="true" style="z-index: 24;" data-fragment-index="11"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 32 32"><g class="shape-element" fill="rgb(204, 65, 37)"><path d="M16 0c-8.836 0-16 7.164-16 16s7.164 16 16 16 16-7.164 16-16-7.164-16-16-16zM23.914 21.086l-2.828 2.828-5.086-5.086-5.086 5.086-2.828-2.828 5.086-5.086-5.086-5.086 2.828-2.828 5.086 5.086 5.086-5.086 2.828 2.828-5.086 5.086 5.086 5.086z"></path></g></svg></div></div></section><section data-background-image="deck-2-3/7e1ac49fc59f8c49caa5c1eb77acdca2" data-background-opacity="0.7" data-id="6a486c0826a2063b2bdf7d3106ee1184"><div class="sl-block" data-block-type="image" style="width: 430px; height: 113px; left: 31px; top: 27px; min-width: 4px; min-height: 4px;" data-block-id="3f383962c499026441e32b605f7ef5e8"><div class="sl-block-content" style="z-index: 11;" data-inline-svg="false"><img style="" data-natural-width="430" data-natural-height="113" data-lazy-loaded="" data-src="deck-2-3/56c4e03d47f46e1c9c2472bb1bfab33e.svg"></div></div>
+
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 230px;" data-block-id="ac8e2d11542c6112765a1b61744722e5"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left;">
+<ul>
+	<li style="text-align: left;"><a href="https://www.met.police.uk/advice/advice-and-information/ph/photography-advice/" target="_blank">Metropolitan Police - Photography advice</a></li>
+	<li style="text-align: left;"><a href="https://en.wikipedia.org/wiki/Photography_and_the_law#Legal_restrictions_on_photography" target="_blank">Wikipedia - Photograph and the Law</a></li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 80px; top: 171px;" data-block-id="fe2377588b7680e59444804642fa8a8d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left;">
+<p>Links</p>
+</div></div></section><section data-background-opacity="0.7" data-id="3621e280cb4f21b39d3c44de4b6c076b" data-background-image="deck-2-3/daa202977446418242a7f5a7eb3e4343">
+<div class="sl-block" data-block-type="text" style="height: auto; width: 855px; left: 68px; top: 194px;" data-block-id="ed49fbf28d87fdb1da19c7757874cde0"><div class="sl-block-style" style="z-index: 11;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left; background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0);">
+<ul>
+	<li class="fragment" data-fragment-index="0">
+<span style="font-size:1.2em">Who needs to know about the error</span>
+	<ul>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:1.2em">Public / Developers</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="1">
+<span style="font-size:36px">Use Appropriate language for the audience</span>
+	<ul>
+		<li class="fragment" data-fragment-index="1"><span style="font-size:36px">Avoid jargon</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="2"><span style="font-size:1.2em">Consider what data is exposed through messages</span></li>
+	<li class="fragment" data-fragment-index="2"><span style="font-size:1.2em">Help users resolve their issue</span></li>
+	<li class="fragment" data-fragment-index="3"><span style="font-size:36px">Is it even worth showing an error to the user?</span></li>
+</ul>
+</div></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 326px; height: 114px; left: 46px; top: 30px;" data-block-id="75ee7ac909ed4bbd82d4e544179dc329"><div class="sl-block-content" style="z-index: 12;" data-inline-svg="false"><img style="" data-natural-width="326" data-natural-height="114" data-lazy-loaded="" data-src="deck-2-3/ee14a798f34a36780aae97dd353f14b4.svg"></div></div></section><section data-id="ce0b9152b74a82a6b1da1501676c9cf8" data-background-image="deck-2-3/91b00606f550a3f3945dc0efd794d7a2" data-background-opacity="0.7">
+<div class="sl-block" data-block-type="video" style="min-width: 30px; min-height: 30px; width: 918px; height: 516px; left: 21px; top: 174px;" data-block-id="8d40f2ae2ba00137b326659bfc5fd5f6"><div class="sl-block-content" style="z-index: 12;" data-media-id="5180122" data-video-thumb="https://s3.amazonaws.com/media-p.slid.es/videos/167550/095t2Hwq/untitled_thumb_00001.jpg"><video playsinline="" poster="https://s3.amazonaws.com/media-p.slid.es/videos/167550/095t2Hwq/untitled_thumb_00001.jpg" data-autoplay="" data-paused-by-reveal="" data-lazy-loaded="" data-src="deck-2-3/170599dfeee7bb977e06578857697aaf.mp4"></video></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 228px; height: 114px; left: 18px; top: 15px;" data-block-id="e58b6e8bff2b4b9dea6171da7a5af113"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="62" data-natural-height="31" data-lazy-loaded="" data-src="deck-2-3/7b120ce89869c3d8bb9d0a11da1ed66a.svg"></div></div></section><section data-background-image="deck-2-3/91b00606f550a3f3945dc0efd794d7a2" data-background-opacity="0.7" data-id="a860a26d8e215fe7e1d1693ce9ce77b5"><div class="sl-block" data-block-type="text" style="height: auto; width: 855px; left: 68px; top: 194px;" data-block-id="ed49fbf28d87fdb1da19c7757874cde0">
+    <div class="sl-block-style" style="z-index: 11;">
+        <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left; background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0);">
+<ul>
+	<li class="fragment" data-fragment-index="0"><span style="font-size:1.2em">Philips Hue Bulbs</span></li>
+	<li class="fragment" data-fragment-index="0">
+<span style="font-size:1.2em">Integrates with </span>
+	<ul>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:1.2em">​Jenkins, Travis</span></li>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:1.2em">Uptime Robot</span></li>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:1.2em">Sentry</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="0">
+<span style="font-size:1.2em">​In the event of server errors</span>
+	<ul>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:1.2em">​User given options (home, search) -</span></li>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:36px">Sentry record written</span></li>
+		<li class="fragment" data-fragment-index="0"><span style="font-size:36px">Bulb = Red</span></li>
+	</ul>
+	</li>
+</ul>
+</div>
     </div>
-  </div>
-  <div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 560px; height: 374px; left: 388px; top: 314px;">
-    <div class="sl-block-content fragmentplain " style="z-index: 11;" data-fragment-index="1">
-      <img style="background:none" data-natural-width="480" data-natural-height="321" data-src="images/win2000pro.png">
-    </div>
-  </div>
-</section>
-<section data-id="9f004a73ea33edeb539bf3cacb587499"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 720px; left: 0px; top: 0px;" data-block-id="3e32f145e842d11302b3f0d0ad4ee1a4"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
-    <p>What can we learn from just this picture</p>
-    </div></div>
-    <div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 855px; left: 41px; top: 121px;" data-block-id="d6a8bb67eb0431874679521820f1ac4d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left;">
-    <ul>
-      <li>Comparing the title bars - best guess : windows 2000
-      <ul>
-        <li>Windows 2000 EOL 2010</li>
-        <li>Photo taken Feb 2017</li>
-      </ul>
-      </li>
-      <li>Highly likely : Local file system</li>
-      <li>Updated through some update process -
-      <ul>
-        <li>Which could be launched multiple times</li>
-        <li>Log file for that is c:\vlogdir\atmfix.log</li>
-      </ul>
-      </li>
-      <li>OS shows mouse cursor</li>
-      <li>Developers of patch recognised difficulty of recording errors
-      <ul>
-        <li>But what about when the error reporting breaks</li>
-      </ul>
-      </li>
-      <li>Machine was still running - OS not restricted to a single process</li>
-    </ul>
-    </div></div></section>
-<!-- 
-<section data-background-image="images/cody-davis-253928-unsplash.jpg" 
-data-background-size="cover" data-background-opacity="0.9" 
-class="present" style="display: block;" data-notes="Not a rubbish hobby">
-  <div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 270px; height: 148px; left: 80px; top: 10px;" data-block-id="294656a27b98f48abc657ba9021c077d">
-    <div class="sl-block-content" data-inline-svg="false" style="z-index: 13;" data-fragment-index="0">
-      <img  
-      data-src="images/something_strange.svg" 
-        style="
-        border: none;
-        background:  none;
-        box-shadow:  none;" 
-        data-natural-width="270" data-natural-height="148">
-      </div>
-    </div>
-</section>
+</div>
 
-
-<section data-id="7e32fb4c80402932e32e1d8053dd2385" data-background-image="https://s3.amazonaws.com/media-p.slid.es/uploads/167550/images/5098286/cody-davis-253928-unsplash.jpg" 
-  class="present" style="display: block;">
-  <div class="sl-block" data-block-type="image" data-block-id="dafb2460c1a62bf652cc0106b5e8d485">
-      <div class="sl-block-content" style="z-index: 11;">
-        <img  data-natural-width="2000" data-natural-height="1125" data-src="images/something_strange.svg">
-      </div>
-    </div>
-</section> -->
-
-
-<section data-background-image="images/meredith-hunter-69168-unsplash.jpg">
-  
-</section>
-
-<section data-background-image="images/seth-doyle-76523-unsplash.jpg" data-markdown data-separator-notes="^Note:">
-  <textarea data-template>
-    Note:
-    It's a great hobby - and not at all sad and boring like my dad thinks. or my wife.
-
-  </textarea>
-</section>
-
-<section data-background-image="images/bruce-mars-559223-unsplash.jpg" data-markdown data-separator-notes="^Note:">
-  <textarea data-template>
-    Note:
-    It's a great hobby - and not at all sad and boring like my dad thinks. or my wife.
-
-  </textarea>
-</section>
-
-<section data-markdown data-separator-notes="^Note:">
-	<textarea data-template>
-    ## How to do this hobby
-    - First you must be observant with your eyes while outside. <!-- .element: class="fragment"-->
-    - When you observe evidence of technical failure, be sure to capture it using your smartphone or camera.<!-- .element: class="fragment"-->
-    - Upload your evidence of technical failure to the internet.<!-- .element: class="fragment"-->
-    - Now drink your weak lemon drink so as to wash away the abject taste of failure.<!-- .element: class="fragment"-->
-	</textarea>
-</section>
-
-<section data-id="52f2dd112fec8edfe3a23c5389b971e5">
-  <div class="sl-block" data-block-type="text" >
-    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
-      <h2>What does a wild error look like?</h2>
-    </div>
-  </div>
-  <div class="sl-block" data-block-type="image" data-block-id="dafb2460c1a62bf652cc0106b5e8d485">
+<div class="sl-block" data-block-type="image" style="width: 228px; height: 114px; left: 18px; top: 15px; min-width: 4px; min-height: 4px;" data-block-id="0901262dd714edc1e72e36144e3666ce">
     <div class="sl-block-content" style="z-index: 11;">
-      <img  data-natural-width="2000" data-natural-height="1125" data-src="images/wp-image-451715427jpg_1_.jpg">
+        <img style="" data-natural-width="62" data-natural-height="31" data-lazy-loaded="" data-src="deck-2-3/7b120ce89869c3d8bb9d0a11da1ed66a.svg">
     </div>
-  </div>
-  <div class="sl-block" data-block-type="text" style="position:absolute;height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 237px; top: 243px;" data-block-id="3572bdbe37847b7d287bf818fab8ba42">
-    <div class="sl-block-style" style="z-index: 14; opacity: 0.95;">
-      <div class="sl-block-content fragment visible current-fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; background-color: rgb(136, 136, 136); padding: 25px; border-style: solid; border-width: 4px; border-color: rgb(0, 0, 0); border-radius: 24px;" data-fragment-index="0">
-        <blockquote>
-          <p>
-            <span>
-              The file c:\VLOGDIR\ATMFIX.LOG could not be opened. The process cannot access the file because it is being used by another process.          
-            </span>
-          </p>
-        </blockquote>
-      </div>
+</div></section><section data-background-image="deck-2-3/91b00606f550a3f3945dc0efd794d7a2" data-background-opacity="0.7" data-id="09843392aa516ebf0411e792e9a967ac">
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 909px; height: 182px; left: 26px; top: 269px;" data-block-id="0c6bfb34a472d48e54d05600407545f8"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="521" data-natural-height="104" data-lazy-loaded="" data-src="deck-2-3/7691ddfae3f7aa61503c2c9bf58f739e.svg"></div></div></section><section data-background-image="deck-2-3/daa202977446418242a7f5a7eb3e4343" data-id="53681c88d5e55d10893b549bfaf04493"><div class="sl-block" data-block-type="text" style="height: auto; width: 855px; left: 53px; top: 184px;" data-block-id="ed49fbf28d87fdb1da19c7757874cde0">
+    <div class="sl-block-style" style="z-index: 12;">
+        <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left; background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0); white-space: normal;" data-gramm_id="6506dbe2-a1b9-a994-7f87-d609ef0470f6" data-gramm="true" data-gramm_editor="true" dir="ui">
+<ul>
+	<li class="fragment" data-fragment-index="0">
+<span style="font-size:36px">Things break</span>
+	<ul>
+		<li><span style="font-size:36px">Have a strategy on how to deal with them</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="1">
+<span style="font-size:36px">Consider <span style="font-size:1.0em">your</span> audience</span>
+	<ul>
+		<li><span style="font-size:36px">Accessibility</span></li>
+		<li><span style="font-size:36px">Language</span></li>
+	</ul>
+	</li>
+	<li class="fragment" data-fragment-index="2">Error Collection services can help:
+	<ul>
+		<li>Display useful error to the user</li>
+		<li>Send technical data to developers</li>
+	</ul>
+	</li>
+</ul>
+</div>
     </div>
-  </div>
-</section>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 326px; height: 114px; left: 23px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="c2941d6c01ab35fd6eddb673a67b4911">
+    <div class="sl-block-content" style="z-index: 11;">
+        <img style="" data-natural-width="326" data-natural-height="114" data-lazy-loaded="" data-src="deck-2-3/ee14a798f34a36780aae97dd353f14b4.svg">
+    </div>
+</div>
+</section><section class="stack" data-id="2b12bf5823cb5d16f7ef87c41e9b407d"><section data-id="ee036715416c45daca6b4bd5bb340245" data-background-image="deck-2-3/1de24e3fa8cfab5eeabb4377479016ae" data-background-opacity="0.7">
+<div class="sl-block" data-block-type="text" style="width: 877px; left: 42px; top: 558px; height: auto;" data-block-id="5c53058c8dc3086de05d473bf2c0b7ee"><div class="sl-block-style" style="z-index: 12; opacity: 0.75;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255);" data-gramm_id="116f5b78-26cf-1613-9a43-80ad08fcfa64" data-gramm="true" data-gramm_editor="true" dir="ui">
+<ul>
+	<li>Broken Image by Jhonatan from the Noun Project</li>
+	<li>Backgrounds by unsplash</li>
+</ul>
+</div></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 550px; left: 206px; top: 432px;" data-block-id="1b6497e18f8b4ad0c2c0f68e9d0c6924"><div class="sl-block-style" style="z-index: 13;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left; color: rgb(255, 255, 255);">
+<h2>@computamike</h2>
+</div></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 74px; height: 74px; left: 123px; top: 432px;" data-block-id="eaa3229d028217ad86afa34bf0bef0a9"><div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="400" data-natural-height="400" data-lazy-loaded="" data-src="deck-2-3/2b68b46abee9008d8de02a8773aa337b.svg"></div></div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 911px; height: 672px; left: 25px; top: 24px;" data-block-id="52433eb46a5be3cddc50afbdab3d7982"><div class="sl-block-style" style="z-index: 11; opacity: 0.79;"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="#000000" data-shape-stretch="true" style="z-index: 11;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 911 672"><rect width="911" height="672" class="shape-element" fill="#000000"></rect></svg></div></div></div></section><section data-id="12ef75d0898bee9f78d5c95e2d5b4e99" data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 960px; height: 540px; left: 0px; top: 90px;" data-block-id="718e1f8a82fa55973caceee996431604"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="2000" data-natural-height="1125" data-src="deck-2-3/e8752fbcd00da801b5416ef851e85e96.jpg"></div></div></section><section data-id="b29699edcc3e4485e54f52b4686420e2" data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 960px; height: 720px; left: 0px; top: 0px;" data-block-id="32adcdc946e9e5a8286dff87fb79fc05"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1800" data-natural-height="1350" data-src="deck-2-3/fdbff52df0bafecb3cfdd5c471a2c46f.jpg"></div></div></section><section data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-id="5ec270032ad9442c00f9c821b38b74d2"><div class="sl-block" data-block-type="image" style="width: 405px; height: 720px; left: 277.5px; top: 0px; min-width: 4px; min-height: 4px;" data-block-id="bcbb256debee61da1d204e9be7cc6e8b"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="759" data-natural-height="1350" data-lazy-loaded="" data-src="deck-2-3/61c75e24f9d0f0104057e478a3852b51.jpg"></div></div></section><section data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-id="aeefe955de0e824cbc385dbec80e2a16"><div class="sl-block" data-block-type="image" style="width: 960px; height: 540px; left: 0px; top: 90px; min-width: 4px; min-height: 4px;" data-block-id="0f64885e7d148469adb3df755635dcb3"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="2399" data-natural-height="1350" data-lazy-loaded="" data-src="deck-2-3/994c39354bb84bdfe73c93875c99ce4a.jpg"></div></div></section><section data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-id="503315aaa30e344719c660d211b68e99"><div class="sl-block" data-block-type="image" style="width: 405px; height: 720px; left: 278px; top: 0px; min-width: 4px; min-height: 4px;" data-block-id="13b6dbf2af97681b28f56f9a073d8632"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="759" data-natural-height="1350" data-lazy-loaded="" data-src="deck-2-3/7de0f995be2d739a44d89514a5a751fd.jpg"></div></div></section><section data-background-image="deck-2-3/27d2a795642d1afa93d7596f822383de.jpg" data-id="2993cce3cf222d1eec6ad32e1fe9279f"><div class="sl-block" data-block-type="image" style="width: 405px; height: 720px; left: 278px; top: 0px; min-width: 4px; min-height: 4px;" data-block-id="78e709f2081755408ffeedee2d32f011"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="759" data-natural-height="1350" data-lazy-loaded="" data-src="deck-2-3/df602ffd324c6f80ffc79af1885d5626.jpg"></div></div></section></section>
+			</div>
+		</div>
 
-<section data-markdown data-separator-notes="^Note:">
-  ## Serious points...
-  * Photography law - know where you stand.<!-- .element: class="fragment"-->
-  * Public/Private property<!-- .element: class="fragment"-->
-</section>
-
-<section data-markdown data-separator-notes="^Note:">
-  ## Photography Law - UK
-  * Basic research - pretty safe.
-  * Photographs on public property (roads/footpaths etc) 
-  * Photography on private property (shops etc)
-    * You can be asked not to take photographs, 
-    * No Photography could be a condition of entry
-    * If you're asked to stop taking photograps - stop taking photographs.
-</section>
-
-<section data-markdown data-separator-notes="^Note:">
-  ## Photography Law - UK
-  * There are restrictions on some places - 
-    * You can't take photos of defence installations
-    * .. Or in court.
-
-  Note:
-  This will only display in the notes window.
-</section>
+		<script>
+			var SLConfig = {"deck": {"id":1302541,"slug":"deck-2-3","title":"Oggcamp 2018  - Wild Error Messages","description":"","width":960,"height":720,"visibility":"all","published_at":"2018-08-02T06:48:40.388Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/add586c23a2de27cc620170a367f4f9b/thumb.jpg?1534435028","view_count":1,"user":{"id":167550,"username":"mikehingley","name":"Mike Hingley","description":null,"thumbnail_url":"https://lh4.googleusercontent.com/-v7kzrWVUA-4/AAAAAAAAAAI/AAAAAAAAAKY/egRbmbk-1ig/photo.jpg","paid":true,"pro":false,"lite":true,"team_id":null,"settings":{"id":1508162,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"white-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":false,"slide_count":29,"rtl":false,"version":2,"collaborative":false,"deck_user_editor_limit":1,"data_updated_at":1534672395701,"font_typekit":null,"font_google":null,"notes":{"057b0ef1fd7dd135000c7ec779ce0c7d":"Not a rubbish hobby","7e32fb4c80402932e32e1d8053dd2385":"What is a wild error?  It's something strange. something we wouldn't expect to see. So it's that pop up you wouldn't expect to see on a billboard, or that wrong graphic being shown.","64d4bae10be97af227fc962035ec89c7":"","ec290b3857de1fe49dd50246a025bc1c":"So - why record error messages?  well - to learn.  Let's take this example of an error message that I recorded back in Feb 2017 - what can we learn from this?","7de6baaef6af8d70c4dff9a1f7e0c2d3":"","60e51cb27248ef02f034396c5248d373":"","9f004a73ea33edeb539bf3cacb587499":"Here's what we found out from this quick observation of the message.\n\nOS - Windows 2000 went out of support in 2010 - picture taken 2017\n","0a0f94b0a2cd4e26e1cf86dbab440649":"","b4c9bf32d3f434e9d41756ad7b7c66d5":"","fd1eb2c17d3d9f604f5b2b8805b19129":"","2d5bf90be8519a37f010590a93b3b96d":"ok - you might need to stretch here - introduce your self... breathe... you can do this Mike - after all this talk is all about failures and what would be more meta than failing whlie giving a talk about failure.  Ok - feeling calm?  Good - right next slide.","1bffbf064756f6032393f58e71c835c4":"Here's what We're going to go through. So let's go through this slide.  Deep breath and NEXT!","2ee6681e5bfc455ddbeac3e245e70fc2":"","ee036715416c45daca6b4bd5bb340245":"","8e4aeabdce107a66ad8fe7d3f1f94584":"Here are some shots - this first error was photographed in 2013, and was the first wild error I ever captured. Down for close ups","d3614bad398eeda4612dd2e447c036b0":"","724bdf5a6e9923f1395352ae20da152c":"","03cd672cc38a14350bcf63325395c102":"","6e17c05373fc9aa74c6f68ad56083214":"Let's talk briefly about what you need to know about capturing your own error messages in the wild.","a4c9eb3052a13a93f4a3aa5e7ae3cfcd":"","6a486c0826a2063b2bdf7d3106ee1184":"","7494b8c98be1f469e7d78d6478723634":"So if you hunt around the internet you can find articles about writing efficient error messages.","ce0b9152b74a82a6b1da1501676c9cf8":"","53681c88d5e55d10893b549bfaf04493":"","e10d9e5aa4c9977739fa5ffa08574a6d":"","86c241ea2847217f37250cefe5d4deaa":"","947c1325bcbd0e060d0ba6b0bcb5ec58":"","a0c833121aced13d674e8d5c660b2e3c":"","4e5e305ecde08294f2a2e9e7e512c870":"","a70298dd5928764793ba6b8e6d1fa7a7":"","3621e280cb4f21b39d3c44de4b6c076b":"Typically the message needs to satisfy 2 camps - the users need to know that there is a problem, and how to resolve their goal, Developers need to know complex technical data.","11991ce1781b6a1fe454aa720dc19feb":"","a860a26d8e215fe7e1d1693ce9ce77b5":"","09843392aa516ebf0411e792e9a967ac":"","2f97500e7adf82fafd8d17e6a7a0291b":"","12ef75d0898bee9f78d5c95e2d5b4e99":"","b29699edcc3e4485e54f52b4686420e2":"","0924e6107c34c532172245d3724b46b1":"","c61119e22099b713ddea55b6057ccf0f":"","5ec270032ad9442c00f9c821b38b74d2":"","aeefe955de0e824cbc385dbec80e2a16":"","503315aaa30e344719c660d211b68e99":"","2993cce3cf222d1eec6ad32e1fe9279f":""}}};
 
 
-<section data-markdown data-separator-notes="^Note:">
-  ## Serious points...
-  <textarea data-template>
-    ## How to do this hobby
-    * Photography law - know where you stand.<!-- .element: class="fragment"-->
-    * Lemon drink - totally optional. <!-- .element: class="fragment"-->
-	</textarea>
-  
-  
-  
-</section>
+			// Use local fonts
+			SLConfig.fonts_url = 'lib/fonts/';
+		</script>
 
-<section data-markdown data-separator-notes="^Note:">
-  <textarea data-template>
-    ## So why even do it?
-    * I think it's important - 
-      * Not sad like my father thinks
-    * IOT = more computers in more things
-      * Computers 
-    * Error messages remind us that all this great infrastructure we now have was made by humans.<!-- .element: class="fragment"-->
-    * Reveals interesting information about the systems in question<!-- .element: class="fragment"-->
-    * As a developer - makes me think about the errors I display to my users.<!-- .element: class="fragment"-->
-      * Should I even show them errors?<!-- .element: class="fragment"-->  
-  </textarea>
-</section>
+		<script src="lib/head.min.js"></script>
+		<script src="lib/reveal.min.js"></script>
+		<script src="lib/offline.js"></script>
 
-<section data-markdown data-separator-notes="^Note:">
-  ## What can we learn from this?
-  * Error conditions are something we need to think about when designing systems.
-  * Error messages and error codes are the old way of doing things
-    * Reliance on users to report problems in your system.
-    * Error reporting technology 
-  * Show an error but get an alert directly
-  * Reveals interesting information about the systems in question
-</section>
+		<!-- Initialize the presentation -->
+		<script>
+			Reveal.initialize({
+				width: 960,
+				height: 720,
+				margin: 0.05,
 
-<section data-markdown data-separator-notes="^Note:">
-  ## User Experience and Error Messages
-  * Error conditions are something we need to think about when designing systems.
-  * Error messages and error codes are the old way of doing things
-    * Reliance on users to report problems in your system.
-    * Error reporting technology 
-  * Show an error but get an alert directly
-  * Reveals interesting information about the systems in question
-</section>
-<section data-markdown data-separator-notes="^Note:">
-  ## Credits
-  * Photo by meredith hunter on Unsplash
-  * proof reading / testing by Rachel Hingley
-</section>
+				controls: true,
+				progress: true,
+				history: true,
+				mouseWheel: false,
+				showNotes: false,
+				slideNumber: false,
 
+				autoSlide: 0 || 0,
+				autoSlideStoppable: true,
 
+				center: false,
+				shuffle: false,
+				loop: false,
+				rtl: false,
 
-<section data-background-image="images/argos_tomcat.jpg"></section>
+				transition: "slide",
+				backgroundTransition: "slide",
+
+				dependencies: [
+					{ src: 'lib/reveal-plugins/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/highlight/highlight.js', async: true, callback: function() { hljs.initHighlighting(); hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/reveal-plugins/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'lib/reveal-plugins/zoom/zoom.js', async: true }
+				]
+			});
+		</script>
+
+		
+
+	</body>
+</html>
